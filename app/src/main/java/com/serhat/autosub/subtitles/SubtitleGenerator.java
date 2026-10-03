@@ -1162,7 +1162,7 @@ public class SubtitleGenerator {
                 } else if (burnSubtitles) {
 //                    command = String.format("-i %s -vf subtitles=%s:force_style='FontName=%s' -c:v mpeg4 -c:a copy %s",
 //                            inputPath, subtitlePath, fontName, outputPath);
-                     command = String.format("-i %s -vf \"subtitles=%s:force_style='FontName=%s'%s\" %s -c:a copy %s",
+                     command = String.format("-i %s -vf \"subtitles=%s:force_style='FontName=%s,FontSize=36,Alignment=5,Outline=2'%s\" %s -c:a copy %s",
                                                 inputPath, subtitlePath, fontName,
                                                 HardSubtitleExportSettings.videoFilterSuffix(context),
                                                 HardSubtitleExportSettings.videoEncodingArguments(context), outputPath);
@@ -1184,7 +1184,7 @@ public class SubtitleGenerator {
                 if (burnSubtitles && !ReturnCode.isSuccess(session.getReturnCode()) && !wasCancelled(session)) {
                     String retryInputPath = FFmpegKitConfig.getSafParameterForRead(context, videoUri);
                     String fallbackFilter = (styledShorts || styledDouble)
-                            ? "ass=" + subtitlePath : "subtitles=" + subtitlePath + ":force_style='FontName=" + fontName + "'";
+                            ? "ass=" + subtitlePath : "subtitles=" + subtitlePath + ":force_style='FontName=" + fontName + ",FontSize=36,Alignment=5,Outline=2'";
                     fallbackFilter += HardSubtitleExportSettings.videoFilterSuffix(context);
                     session = FFmpegKit.execute(String.format("-y -i %s -vf \"%s\" -c:v mpeg4 -q:v 2 -c:a copy %s",
                             retryInputPath, fallbackFilter, outputPath));
